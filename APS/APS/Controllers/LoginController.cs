@@ -37,8 +37,12 @@ namespace APS.Controllers
 
                     if (usuario.ErroMsg.Equals(""))
                     {
-
+                        Session["usuario"] = usuario.usuario;
+                        Session["loginId"] = usuario.loginId;
+                        Session["Id"] = usuario.Id;
                         
+                        return RedirectToAction("Index", "Home");
+
                     } else
                     {
                         ViewBag.MsgErro = "Falha na autenticação. Erro: " + usuario.ErroMsg;
