@@ -6,12 +6,13 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using PagedList;
 
 namespace APS.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int? pagina)
         {
             HttpClient client = new HttpClient();
             int loginId = (int) Session["loginId"];
@@ -26,6 +27,12 @@ namespace APS.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     Vendas vendas = JsonConvert.DeserializeObject<Vendas>(response.Content.ReadAsStringAsync().Result);
+
+                    int tamanhoPagina = 10;
+                    int numeroPagina = pagina ?? 1;
+                    PagedList<Venda> pd = new PagedList<Venda>(vendas.vendas, numeroPagina, tamanhoPagina);
+                    return View(pd);
+
                 }
 
             }
