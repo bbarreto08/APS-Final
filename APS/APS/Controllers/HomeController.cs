@@ -28,6 +28,8 @@ namespace APS.Controllers
                 {
                     Vendas vendas = JsonConvert.DeserializeObject<Vendas>(response.Content.ReadAsStringAsync().Result);
 
+                    Session["Vendas"] = vendas;
+
                     int tamanhoPagina = 10;
                     int numeroPagina = pagina ?? 1;
                     PagedList<Venda> pd = new PagedList<Venda>(vendas.vendas, numeroPagina, tamanhoPagina);
@@ -43,6 +45,32 @@ namespace APS.Controllers
             }
 
             return View();
+        }
+        
+        public ActionResult Detalhes(int vendaId)
+        {
+            
+            var tempListVenda = Session["Vendas"];
+
+            Vendas listVenda = (Vendas) tempListVenda;
+       
+            Venda venda = listVenda.vendas.Where(a => a.vendaId == vendaId).FirstOrDefault();
+
+            return View(venda.pedido);
+        }
+
+        public ActionResult Baixar(int vendaId)
+        {
+
+            // List<Venda> listVenda = (List<Venda>) Session["Vendas"] as dynamic;
+
+            var tempListVenda = Session["Vendas"];
+
+            Vendas listVenda = (Vendas)tempListVenda;
+
+            Venda venda = listVenda.vendas.Where(a => a.vendaId == vendaId).FirstOrDefault();
+
+            return View(venda.pedido);
         }
 
     }

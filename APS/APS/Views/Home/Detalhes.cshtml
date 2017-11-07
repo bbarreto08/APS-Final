@@ -1,0 +1,43 @@
+﻿@model IEnumerable<APS.Models.Pedido>
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h4>Detalhes do pedido</h4>
+
+<table class="table">
+    <tr>       
+        <th>
+            Produto
+        </th>
+        <th>
+            Quantidade
+        </th>
+        <th>
+            Valor R$
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.descricaoProduto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantidadeProduto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valorProduto)
+        </td>        
+    </tr>
+     
+ }
+
+</table>
+
+<td>
+    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) 
+    
+</td>
