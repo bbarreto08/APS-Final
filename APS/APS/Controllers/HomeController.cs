@@ -15,6 +15,12 @@ namespace APS.Controllers
         public ActionResult Index(int? pagina)
         {
             HttpClient client = new HttpClient();
+
+            if(Session["loginId"] == null || Session["loginId"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             int loginId = (int) Session["loginId"];
 
             client.BaseAddress = new Uri("http://localhost/");

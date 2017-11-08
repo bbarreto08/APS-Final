@@ -4,40 +4,54 @@
     ViewBag.Title = "Detalhes";
 }
 
-<h4>Detalhes do pedido</h4>
+<div class="x_panel">
+    <div class="x_title">
+        <h2>Detalhes do pedido</h2>
+    </div>
 
-<table class="table">
-    <tr>       
-        <th>
-            Produto
-        </th>
-        <th>
-            Quantidade
-        </th>
-        <th>
-            Valor R$
-        </th>
-        <th></th>
-    </tr>
+    <div>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped" id="myTable">
+            <tr>
+                <th class="text-center">
+                    Produto
+                </th>
+                <th class="text-center">
+                    Quantidade
+                </th>
+                <th class="text-center">
+                    Valor R$
+                </th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.descricaoProduto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.quantidadeProduto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.valorProduto)
-        </td>        
-    </tr>
-     
- }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.descricaoProduto)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.quantidadeProduto)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.valorProduto)
+                    </td>
+                </tr>
 
-</table>
+            }
 
-<td>
-    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) 
-    
-</td>
+            @*<td>
+
+               Html.ActionLink("Baixar", "Home", new { vendaId = Model.First<APS.Models.Pedido>().vendaId })
+
+            </td>*@
+
+        </table>
+
+        </div>
+
+        </div>
+
+
+
+    </div>
