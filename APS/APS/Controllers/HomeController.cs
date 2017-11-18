@@ -7,6 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using PagedList;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace APS.Controllers
 {
@@ -24,7 +27,7 @@ namespace APS.Controllers
             int loginId = (int) Session["loginId"];
 
             client.BaseAddress = new Uri("http://localhost/");
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("aplication/json"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("aplication/json"));
 
             try
             {
@@ -57,6 +60,7 @@ namespace APS.Controllers
         {
             
             var tempListVenda = Session["Vendas"];
+            Session["vendaId"] = vendaId;
 
             Vendas listVenda = (Vendas) tempListVenda;
        
@@ -65,18 +69,32 @@ namespace APS.Controllers
             return View(venda.pedido);
         }
 
-        public ActionResult Baixar(int vendaId)
+        public ActionResult Baixar()
         {
 
             // List<Venda> listVenda = (List<Venda>) Session["Vendas"] as dynamic;
 
             var tempListVenda = Session["Vendas"];
+            int vendaId = (int)Session["vendaId"];
 
-            Vendas listVenda = (Vendas)tempListVenda;
+            Vendas listVenda = (Vendas)tempListVenda;            
 
-            Venda venda = listVenda.vendas.Where(a => a.vendaId == vendaId).FirstOrDefault();
 
-            return View(venda.pedido);
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:56652/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
+                
+                string vendaSerialized = JsonConvert.SerializeObject(new { vendaId = vendaId } );
+
+                var content = new StringContent(vendaSerialized, Encoding.UTF8, "application/json");
+                //POST                
+                HttpResponseMessage  response = client.GetAsync("api/Vendas?vendaId=" + vendaId).Result;
+                
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
     }

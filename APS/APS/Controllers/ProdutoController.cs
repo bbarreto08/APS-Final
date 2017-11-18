@@ -28,8 +28,13 @@ namespace APS.Controllers
 
         public ActionResult CadastroProduto()
         {            
-
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CadastroProduto(Pedido pedido)
+        {
+            return RedirectToAction("Index", "Home");
         }
     }
 }
