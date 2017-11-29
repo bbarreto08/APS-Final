@@ -90,8 +90,8 @@ namespace APS.Controllers
 
                 var content = new StringContent(vendaSerialized, Encoding.UTF8, "application/json");
                 //POST                
-                HttpResponseMessage  response = client.GetAsync("api/Vendas?vendaId=" + vendaId).Result;
-                
+                HttpResponseMessage  response = client.GetAsync("api/Vendas/Baixar?vendaId=" + vendaId).Result;
+
             }
 
             return RedirectToAction("Index", "Home");

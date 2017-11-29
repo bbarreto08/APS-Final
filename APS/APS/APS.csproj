@@ -162,6 +162,8 @@
     </Compile>
     <Compile Include="Models\Pedido.cs" />
     <Compile Include="Models\PedidoRecebido.cs" />
+    <Compile Include="Models\produto.cs" />
+    <Compile Include="Models\RequestPutProduto.cs" />
     <Compile Include="Models\RequestPutTipoProduto.cs" />
     <Compile Include="Models\tipoProduto.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -357,6 +359,7 @@
     <Content Include="Views\Home\Detalhes.cshtml" />
     <Content Include="Views\Produto\CadastroCategoria.cshtml" />
     <Content Include="Views\Produto\CadastroProduto.cshtml" />
+    <Content Include="Views\Produto\CadastrarProduto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
